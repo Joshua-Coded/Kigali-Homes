@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const cities = require('./cities');
 const {places, descriptors} = require('./seedHelpers');
-const Campground = require('../models/campground');
+const Campground = require('../models/campgrounds');
 
 
 mongoose.connect('mongodb://localhost:27017/alu-camp', {
@@ -14,13 +14,14 @@ mongoose.connect('mongodb://localhost:27017/alu-camp', {
 //     useUnifiedTopology: true
 // });
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, "connection error"));
-db.once("open", () => console.log("Connected to Mongdb!!!!"));
 
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
+    console.log("Database connected");
+});
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
-
 
 const seedDB = async () => {
     await Campground.deleteMany({})
@@ -30,10 +31,12 @@ const seedDB = async () => {
             location: `${cities[random1000].city}, ${cities[random1000].state},
              ${cities[random1000].state}`,
              title: `${sample(descriptors)} ${sample(places)}`,
+
         })
-                await camp.save();       
-    }
+        await camp.save();
+    }   
 }
+
 
 seedDB().then(() => {
     mongoose.connection.close();
