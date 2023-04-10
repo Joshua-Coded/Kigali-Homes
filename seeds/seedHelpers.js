@@ -17,9 +17,9 @@ module.exports.descriptors = [
     'Sky',
     'Dusty',
     'Diamond'
-]
-
-module.exports.places = [
+    ]
+    
+    module.exports.places = [
     'Flats',
     'Village',
     'Canyon',
@@ -41,4 +41,4 @@ module.exports.places = [
     'Hunting Camp',
     'Cliffs',
     'Hollow'
-]
+    ]
