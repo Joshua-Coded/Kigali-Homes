@@ -3,7 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const Campground = require('./models/campgrounds');
+const Campground = require('./models/campground');
 
 // connecting to MongoDB
 
@@ -81,3 +81,4 @@ app.delete('/campgrounds/:id', async (req, res) => {
 app.listen(4000, () => {
     console.log('listening on port 4000!');
 });
+
