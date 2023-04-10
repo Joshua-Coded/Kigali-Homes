@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Joshbam-joshwilly/Alu_virtual_camp#readme",
   "dependencies": {
     "ejs": "^3.1.9",
+    "ejs-mate": "^4.0.0",
     "express": "^4.18.2",
     "method-override": "^3.0.0",
     "mongoose": "^7.0.3"

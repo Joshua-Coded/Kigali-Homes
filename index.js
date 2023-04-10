@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 
@@ -20,7 +21,7 @@ db.once("open", () => {
 
 const app = express();
 
-
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -57,7 +58,8 @@ app.get('/campgrounds/:id', async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render("campgrounds/show", {campground})
 });
- res.redirect(`/campgrounds/${campground._id}`);
+
+
 app.get('/campgrounds/:id/edit', async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render("campgrounds/edit", {campground})
