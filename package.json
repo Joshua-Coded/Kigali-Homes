@@ -1,0 +1,25 @@
+{
+  "name": "alu_virtual_camp",
+  "version": "1.0.0",
+  "description": "This a virtual camping system for all students",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/Joshbam-joshwilly/Alu_virtual_camp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joshbam-joshwilly/Alu_virtual_camp/issues"
+  },
+  "homepage": "https://github.com/Joshbam-joshwilly/Alu_virtual_camp#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
+  }
+}
