@@ -7,6 +7,7 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError')
 const methodOverride = require('method-override');
 const Campground = require('./models/campgrounds');
+const Review = require('./models/review');
 
 // connecting to MongoDB
 
@@ -81,6 +82,16 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
 }));
+
+app.post('/campgrounds/:id/review', catchAsync(async (req,res) => {
+  const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    Campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+
+}))
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
