@@ -30,6 +30,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //  middleware for campgrounds
 
@@ -47,6 +48,7 @@ const validateCampground = (req, res, next) => {
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
+
 
 
 app.get('/', (req, res) => {
