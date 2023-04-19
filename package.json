@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Joshbam-joshwilly/Alu_virtual_camp#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "ejs": "^3.1.9",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.2",
