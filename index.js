@@ -4,18 +4,18 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
-const ExpressError = require('./utils/ExpressError')
+const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 
+
 const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews.js');
-
-
-// connecting to MongoDB
+const reviews = require('./routes/reviews');
 
 mongoose.connect('mongodb://localhost:27017/alu-camp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
+    
+    
 });
 
 const db = mongoose.connection;
@@ -32,47 +32,29 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 
 const sessionConfig = {
-    secret: 'joshua',
+    secret: 'joshua!',
     resave: false,
-    saveUnintialized: true,
-    cookie: { 
-        httpsOnly: true,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 60 * 24 *7,
-
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
-
 app.use(session(sessionConfig));
 app.use(flash());
 
-//  middleware for campgrounds
-
-const validateCampground = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
-
-// middleware for reviews
-
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
-
-
 app.use((req, res, next) => {
-res.locals.success =req.flash('success');
-res.locals.failure =req.flash('error');
-next();
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
 })
 
+app.use('/campgrounds', campgrounds)
+app.use('/campgrounds/:id/reviews', reviews)
 
 app.get('/', (req, res) => {
     res.render('home')
