@@ -41,10 +41,6 @@ router.post('/login',
         res.redirect(redirectUrl);
     });
 
-// router.get('/logout', (req, res) => {
-//     req.logout();
-   
-// })
 
 router.get("/logout", (req, res) => {
     req.logout(req.user, err => {
