@@ -29,6 +29,3 @@ router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(async (req, r
 }))
 
 module.exports = router;
-
-
-
