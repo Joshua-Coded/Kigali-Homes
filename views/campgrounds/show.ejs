@@ -3,8 +3,6 @@
 
 <div class="row">
     <div class="col-6">
-<!-- the carousel -->
-
         <div id="campgroundCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <% campground.images.forEach((img, i) => {  %>
@@ -14,46 +12,41 @@
                 <% }) %>
 
             </div>
-            
             <% if(campground.images.length > 1) {%>
-                <a class="carousel-control-prev" href="#campgroundCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#campgroundCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+            <a class="carousel-control-prev" href="#campgroundCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#campgroundCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
             <% } %>
         </div>
 
-
         <div class="card mb-3">
-            
-           
             <div class="card-body">
                 <h5 class="card-title"><%= campground.title%></h5>
                 <p class="card-text"><%= campground.description%></p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-muted"><%= campground.location %></li>
-                <% if (campground.author) { %>
-                  <li class="list-group-item">Submitted by <%= campground.author.username %></li>
-                <% } %>
-                <li class="list-group-item">$<%= campground.price %>/night</li>
-              </ul>            
-              <% if (currentUser && campground.author && campground.author.equals(currentUser._id)) { %>
-                <div class="card-body">
-                  <a class="card-link btn btn-info" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                  <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                <li class="list-group-item text-muted"><%= campground.location%></li>
+                <li class="list-group-item">Submitted by <%= campground.author.username%></li>
+                <li class="list-group-item">$<%= campground.price%>/night</li>
+            </ul>
+            <%  if( currentUser && campground.author.equals(currentUser._id))  {%>
+            <div class="card-body">
+                <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-danger">Delete</button>
-                  </form>
-                </div>
-              <% } %>              
+                </form>
+            </div>
+            <% } %>
             <div class="card-footer text-muted">
                 2 days ago
             </div>
         </div>
+
     </div>
     <div class="col-6">
         <% if(currentUser){ %>
@@ -78,7 +71,7 @@
                 <label for="first-rate5" title="Amazing">5 stars</label>
             </fieldset>
             <div class="mb-3">
-                <label class="form-label" for="body">Review</label>
+                <label class="form-label" for="body">Review Text</label>
                 <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
@@ -90,13 +83,13 @@
         <% for(let review of campground.reviews) { %>
         <div class="card mb-3 ">
             <div class="card-body">
-                <h5 class="card-title">Rating: <%= review.rating %></h5>
+                <h5 class="card-title"> <%= review.author.username%></h5>
                 <p class="starability-result" data-rating="<%=review.rating%>">
                     Rated: <%= review.rating %> stars
                 </p>
-                <h6 class="card-subtitle mb-2 text-muted">By <%= review.author ? review.author.username : 'Unknown' %></h6>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6> -->
                 <p class="card-text">Review: <%= review.body %></p>
-                <% if(currentUser && review.author && currentUser._id.equals(review.author._id)) { %>
+                <%  if( currentUser && review.author.equals(currentUser._id))  {%>
                 <form action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
@@ -106,11 +99,3 @@
         <% } %>
     </div>
 </div>
-
-
-
-
-
-
-
-<!-- colt codes -->
