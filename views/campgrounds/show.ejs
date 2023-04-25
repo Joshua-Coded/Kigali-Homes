@@ -1,5 +1,5 @@
 <% layout('layouts/layout')%>
-<link rel="stylesheet" href="/stylesheets/stars.css">
+<link rel="stylesheet" href="/stylesheet/stars.css">
 
 <div class="row">
     <div class="col-6">
@@ -10,23 +10,24 @@
                 <p class="card-text"><%= campground.description%></p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-muted"><%= campground.location%></li>
-                <li class="list-group-item">Submitted by <%= campground.author.username%></li>
-                <li class="list-group-item">$<%= campground.price%>/night</li>
-            </ul>
-            <%  if( currentUser && campground.author.equals(currentUser._id))  {%>
-            <div class="card-body">
-                <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
-                <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+                <li class="list-group-item text-muted"><%= campground.location %></li>
+                <% if (campground.author) { %>
+                  <li class="list-group-item">Submitted by <%= campground.author.username %></li>
+                <% } %>
+                <li class="list-group-item">$<%= campground.price %>/night</li>
+              </ul>            
+              <% if (currentUser && campground.author && campground.author.equals(currentUser._id)) { %>
+                <div class="card-body">
+                  <a class="card-link btn btn-info" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                  <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
                     <button class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-            <% } %>
+                  </form>
+                </div>
+              <% } %>              
             <div class="card-footer text-muted">
                 2 days ago
             </div>
         </div>
-
     </div>
     <div class="col-6">
         <% if(currentUser){ %>
@@ -36,7 +37,7 @@
                 <label class="form-label" for="rating">Rating</label>
                 <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
             </div> -->
-            <fieldset class="starability-checkmark.css">
+            <fieldset class="starability-basic">
                 <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
                     aria-label="No rating." />
                 <input type="radio" id="first-rate1" name="review[rating]" value="1" />
@@ -51,7 +52,7 @@
                 <label for="first-rate5" title="Amazing">5 stars</label>
             </fieldset>
             <div class="mb-3">
-                <label class="form-label" for="body">Review Text</label>
+                <label class="form-label" for="body">Review</label>
                 <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
@@ -63,13 +64,13 @@
         <% for(let review of campground.reviews) { %>
         <div class="card mb-3 ">
             <div class="card-body">
-                <h5 class="card-title"> <%= review.author.username%></h5>
+                <h5 class="card-title">Rating: <%= review.rating %></h5>
                 <p class="starability-result" data-rating="<%=review.rating%>">
                     Rated: <%= review.rating %> stars
                 </p>
-                <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6> -->
+                <h6 class="card-subtitle mb-2 text-muted">By <%= review.author ? review.author.username : 'Unknown' %></h6>
                 <p class="card-text">Review: <%= review.body %></p>
-                <%  if( currentUser && review.author.equals(currentUser._id))  {%>
+                <% if(currentUser && review.author && currentUser._id.equals(review.author._id)) { %>
                 <form action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
@@ -79,3 +80,11 @@
         <% } %>
     </div>
 </div>
+
+
+
+
+
+
+
+<!-- colt codes -->
