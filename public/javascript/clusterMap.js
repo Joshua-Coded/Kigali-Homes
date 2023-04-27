@@ -8,7 +8,7 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
-
+// thank ou
 
 map.on('load', function () {
     // Add a new source from our GeoJSON data and
