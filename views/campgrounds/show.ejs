@@ -46,7 +46,7 @@
             </div>
             <% } %>
             <div class="card-footer text-muted">
-                2 days ago
+                <span id="post-date"></span>
             </div>
         </div>
 
@@ -110,3 +110,15 @@
 </script>
 
 <script src="/javascript/showPageMap.js"></script>
+
+
+<!-- In your JavaScript code -->
+<script>
+    const currentDateElement = document.getElementById('post-date');
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = currentDate.toLocaleDateString('en-US', options);
+    currentDateElement.innerHTML = formattedDate;
+  </script>
+  
+  
