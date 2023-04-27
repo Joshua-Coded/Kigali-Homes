@@ -55,6 +55,7 @@ module.exports.renderEditForm = async (req, res) => {
     }
     res.render('campgrounds/edit', { campground });
 } 
+// the rest of the code for this route is in the show.ejs file
 
 module.exports.updateCampground = async (req, res) => {
     const { id } = req.params;
