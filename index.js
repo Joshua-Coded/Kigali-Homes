@@ -25,8 +25,11 @@ const helmet = require('helmet');
 
 const mongoSanitize = require('express-mongo-sanitize');
 
+// CONNECTING TO THE DATA BASE
 
-mongoose.connect('mongodb://localhost:27017/alu-camp', {
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/alu-camp';
+
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
     
