@@ -2,12 +2,13 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
-
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+// mongo store implementation
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
@@ -23,6 +24,7 @@ const { contentSecurityPolicy } = require('helmet');
 const helmet = require('helmet');
 
 
+
 const mongoSanitize = require('express-mongo-sanitize');
 
 // CONNECTING TO THE DATA BASE
@@ -35,6 +37,8 @@ mongoose.connect(dbUrl, {
     
     
 });
+
+
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -55,8 +59,21 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }))
 
+// mongo store implementation
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: process.env.SECRET,
+    }
+});
+
+store.on('error', function (e) {
+    console.log('SESSION STORE ERROR', e)
+})
 
 const sessionConfig = {
+    store: store,
     name: 'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
