@@ -29,6 +29,7 @@ module.exports.createCampground = async (req, res, next) => {
                 res.redirect(`/campgrounds/${campground._id}`)
             }
 
+            // the rest of the code for this route is in the show.ejs file
 module.exports.showCampground = async (req, res,) => {
     const campground = await Campground.findById(req.params.id).populate({
         path: 'reviews',
