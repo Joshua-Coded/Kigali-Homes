@@ -45,6 +45,7 @@ module.exports.showCampground = async (req, res,) => {
     res.render('campgrounds/show', { campground });
 }
 
+// the rest of the code for this route is in the edit.ejs file
 module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id)
