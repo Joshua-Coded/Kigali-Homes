@@ -12,6 +12,13 @@ body {
 .cover-container {
   max-width: 60vw;
 }
+.navigation  {
+    display: flex ;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+
+}
 
 .nav-link {
     padding: 0.25rem 0;
@@ -28,12 +35,16 @@ body {
 
 .nav-link.active {
     color: white;
-    border-bottom-color:white;
+    border-bottom-color:grey;
 
 }
 
+.btn-secondary {
+    color: white;
+}
+
 .btn-secondary:hover{
-    color: blue;
+    color: lightblue;
     text-shadow: none;
     border: none;
 }

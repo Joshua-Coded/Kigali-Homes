@@ -13,29 +13,33 @@
      crossorigin="anonymous"></script>
 </head>
 
-<body class="d-flex text-center text-white bg-dark">
+<body class="d-flex text-center text-grey bg-dark">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
-            <div>
-                <h3 class="float-md-left mb-0">Kigali-Homes</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-right">
+            <div class="navigation">
+                
+                <h3 class="float-md-left mb-0" style="color: rgb(170, 80, 80);">Kigali - <span style="color: lightblue;">Homes</span></h3>
+            <nav class="nav nav-masthead justify-content-center float-md-right">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     <a class="nav-link" href="/campgrounds">Campgrounds</a>
+                    <a class="nav-link" href="/campgrounds">About Us</a>
+
                     <% if(!currentUser) { %>
                     <a class="nav-link" href="/login">Login</a>
                     <a class="nav-link" href="/register">Register</a>
                     <% } else { %>
                     <a class="nav-link" href="/logout">Logout</a>
                     <% } %>
+                    <a class="nav-link" href="/campgrounds">Contact Us</a>
+
                 </nav>
             </div>
         </header>
         <main class="main">
             
-            <h2 style="margin: 20px; padding: 30px;"> Welcome to Kigali - Homes! <br> 
-                Discover your perfect home away from home with
-                our extensive selection of rental houses.
-            </h2>
+            <h2 style="margin: 20px; padding: 10px; color: grey;"> Welcome to Kigali - Homes !</h2>
+            <p style="padding: 5px; color: grey; font-size: 25px;" >Discover your perfect home away from home  with
+                our <br> extensive selection of rental houses.</p>
             <a href="/campgrounds" class="btn btn-lg btn-secondary  bg-dark" style="margin-top: 80px; padding: 20px; font-size: 27px;">View
                 Homes</a>
         </main>
